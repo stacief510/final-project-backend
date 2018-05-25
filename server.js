@@ -13,12 +13,32 @@ app.use(function(req, res, next) {
     next();
 });
 app.get('/', function(req, res){
-	res.sendFile('db/seed.js', {root: __dirname});
-});
+    res.json({
+      name:"Stacie Fraser",
+      githubUserName: "stacief510",
+      githubLink: "https://github.com/stacief510",
+    })
+  });
 
+//index for users
 app.get('/users', usersController.index);
-app.get('/drinks', drinksController.index);
+//post for users
+app.post('/users', usersController.create);
+//show for users
+app.get('/users/:id', usersController.show);
+//show user's drinks (aka reviews)
+app.get('/users/:id/drinks', usersController.userDrinks);
 
+//index for all drinks
+app.get('/drinks', drinksController.index);
+//post for drinks
+app.post('/users/:user_id/drinks', drinksController.create);
+//delete drinks (aka review)
+app.delete('/users/:user_id/drinks/:drink_id', drinksController.destroy);
+//show for one drink
+app.get('/users/:user_id/drinks/:drink_id', drinksController.show)
+//update a review (aka drink)
+app.put('/users/:user_id/drinks/:drink_id', drinksController.update)
 
 
 
