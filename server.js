@@ -25,9 +25,9 @@ app.get('/users', usersController.index);
 //post for users
 app.post('/users', usersController.create);
 //show for users
-app.get('/users/:id', usersController.show);
+app.get('/users/:user_id', usersController.show);
 //show user's drinks (aka reviews)
-app.get('/users/:id/drinks', usersController.userDrinks);
+app.get('/users/:user_id/drinks', usersController.userDrinks);
 
 //index for all drinks
 app.get('/drinks', drinksController.index);
