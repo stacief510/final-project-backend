@@ -30,7 +30,21 @@ function show(req, res){
 }
 
 function update(req, res){
-
+	console.log('PUT one drink post')
+	console.log(`req.params.id: ${req.params.drink_id}`);
+	db.Drink.findById(req.params.drink_id, function(err, foundPost){
+		if (err) {
+            console.log(err);
+        } else {
+            foundPost.name = req.body.name,
+            foundPost.store = req.body.store,
+			foundPost.review_title = req.body.review_title,
+			foundPost.review = req.body.review,
+            foundPost.rating = req.body.rating,
+			foundPost.save()
+			res.json(foundPost);
+		}
+	});
 }
 
 function destroy(req, res){
