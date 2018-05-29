@@ -12,12 +12,12 @@ function index(req, res){
 
 function create(req, res){
     console.log('POST drink')
-	console.log(req.body)
-	db.Drink.create(req.body, function(err, drink){
+	db.Drink.create(req.body, function(err, newDrink){
 		if(err){
 			res.send(err);
 		}
-		res.json(drink);
+		res.json(newDrink);
+		console.log("333 this is a new drink", newDrink)
 	});
 }
 
@@ -30,22 +30,42 @@ function show(req, res){
 }
 
 function update(req, res){
-	console.log('PUT one drink post')
-	console.log(`req.params.id: ${req.params.drink_id}`);
-	db.Drink.findById(req.params.drink_id, function(err, foundPost){
+	// console.log(JSON.stringify(req.body))
+	db.Drink.findByIdAndUpdate(req.params.drink_id,
+		{$set: req.body}, function(err, foundPost) {
 		if (err) {
             console.log(err);
         } else {
-            foundPost.name = req.body.name,
-            foundPost.store = req.body.store,
-			foundPost.review_title = req.body.review_title,
-			foundPost.review = req.body.review,
-            foundPost.rating = req.body.rating,
-			foundPost.save()
+			foundPost.name = req.body.name;
+            foundPost.store = req.body.store;
+			foundPost.review_title = req.body.review_title;
+			foundPost.review = req.body.review;
+			foundPost.rating = req.body.rating;
+			foundPost.drink_photo = req.body.drink_photo;
 			res.json(foundPost);
 		}
 	});
 }
+
+// function update(req, res){
+// 	console.log('PUT one drink post')
+// 	console.log(`FE REQUEST: ${req.body}`);
+// 	db.Drink.findById(req.params.drink_id, function(err, foundPost){
+// 		if (err) {
+//             console.log(err);
+//         } else {
+// 			console.log('this is it', req.body);
+//             foundPost.name = req.body.name;
+//             foundPost.store = req.body.store;
+// 			foundPost.review_title = req.body.review_title;
+// 			foundPost.review = req.body.review;
+// 			foundPost.rating = req.body.rating;
+// 			foundPost.drink_photo = req.body.drink_photo;
+// 			foundPost.save();
+// 			res.json(foundPost);
+// 		}
+// 	});
+// }
 
 function destroy(req, res){
     console.log('Deleting a drink...')
