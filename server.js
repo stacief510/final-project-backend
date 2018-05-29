@@ -3,6 +3,7 @@ var app = express();
 app.use(express.static('public'));
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
+const passport = require('passport');
 var usersController = require('./controllers/users');
 var drinksController = require('./controllers/drinks');
 

@@ -3,13 +3,28 @@ var Schema = mongoose.Schema;
 
 
 var UserSchema = new Schema ({
-    name: String,
-	email: String,
-    password: String,
+    name: {
+        type: String,
+        required: true,
+    },
+	email: { 
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    avatar: {
+        type: String,
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
     current_city: String,
-    user_photo: String
 });
 
-var User = mongoose.model('User', UserSchema);
+var User = mongoose.model('users', UserSchema);
 module.exports = User;
 

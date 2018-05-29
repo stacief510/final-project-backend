@@ -17,9 +17,16 @@
   },
   "homepage": "https://github.com/stacief510/final-project-backend#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
+    "gravatar": "^1.6.0",
+    "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.1.2",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "react-passport-auth": "^1.2.1",
+    "validator": "^10.2.0"
   }
 }
