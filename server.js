@@ -15,14 +15,10 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
     next();
 });
-// DB Config
-const db = require('./config/keys').mongoURI;
 
-// Connect to MongoDB (using mLab)
-mongoose.connect(db)
-  .then((() => console.log('MongoDB connected...')))
-  .catch(err => console.log(err));
 
+// Auth Routes
+app.use(userRoutes);
 
 //index for users
 app.get('/users', usersController.index);
@@ -43,6 +39,13 @@ app.delete('/users/:user_id/drinks/:drink_id', drinksController.destroy);
 app.get('/users/:user_id/drinks/:drink_id', drinksController.show)
 //update a review (aka drink)
 app.put('/users/:user_id/drinks/:drink_id', drinksController.update)
+
+app.use(passport.initialize());
+
+require('./config/passport')(passport);
+
+
+
 
 let port = process.env.PORT || 3001;
 app.listen(port, function() {
