@@ -6,41 +6,17 @@ const bcrypt = require('jsonwebtoken');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const keys = require('../../config/keys');
-var usersController = require('../../controllers/users');
-var drinksController = require('../../controllers/drinks');
-
 const User = require('../../models/user');
 
 router.get('/test', (req, res) => res.json({msg: 'Users Endpoint Ok'}));
 
-app.get('/', function(req, res){
-    res.json({
-      name:"Stacie Fraser",
-      githubUserName: "stacief510",
-      githubLink: "https://github.com/stacief510",
-    })
-  });
-
-
-//index for users
-app.get('/users', usersController.index);
-//post for users
-app.post('/users', usersController.create);
-//show for users
-app.get('/users/:user_id', usersController.show);
-//show user's drinks (aka reviews)
-app.get('/users/:user_id/drinks', usersController.userDrinks);
-
-//index for all drinks
-app.get('/drinks', drinksController.index);
-//post for drinks
-app.post('/users/:user_id/drinks', drinksController.create);
-//delete drinks (aka review)
-app.delete('/users/:user_id/drinks/:drink_id', drinksController.destroy);
-//show for one drink
-app.get('/users/:user_id/drinks/:drink_id', drinksController.show)
-//update a review (aka drink)
-app.put('/users/:user_id/drinks/:drink_id', drinksController.update)
+// app.get('/', function(req, res){
+//     res.json({
+//       name:"Stacie Fraser",
+//       githubUserName: "stacief510",
+//       githubLink: "https://github.com/stacief510",
+//     })
+//   });
 
 
 router.post('/register', (req, res) => {

@@ -1,5 +1,5 @@
 module.exports = {
-    mongoURI: 'mongodb://roast-app:purplefish72@ds139920.mlab.com:39920/roast-app',
+    mongoURI: 'mongodb://Stacief510:purplefish72@ds139920.mlab.com:39920/roast-app',
     secretOrKey: 'shhasecret' 
   }
   
