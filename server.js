@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
+const mongoose = require('mongoose');
 app.use(express.static('public'));
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const passport = require('passport');
-var usersController = require('./controllers/users');
-var drinksController = require('./controllers/drinks');
+var userRoutes = require('./routes/api/users');
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -13,34 +13,16 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
     next();
 });
-app.get('/', function(req, res){
-    res.json({
-      name:"Stacie Fraser",
-      githubUserName: "stacief510",
-      githubLink: "https://github.com/stacief510",
-    })
-  });
+// DB Config
+const db = require('./config/keys').mongoURI;
 
-//index for users
-app.get('/users', usersController.index);
-//post for users
-app.post('/users', usersController.create);
-//show for users
-app.get('/users/:user_id', usersController.show);
-//show user's drinks (aka reviews)
-app.get('/users/:user_id/drinks', usersController.userDrinks);
+// Connect to MongoDB (using mLab)
+mongoose.connect(db)
+  .then((() => console.log('MongoDB connected...')))
+  .catch(err => console.log(err));
 
-//index for all drinks
-app.get('/drinks', drinksController.index);
-//post for drinks
-app.post('/users/:user_id/drinks', drinksController.create);
-//delete drinks (aka review)
-app.delete('/users/:user_id/drinks/:drink_id', drinksController.destroy);
-//show for one drink
-app.get('/users/:user_id/drinks/:drink_id', drinksController.show)
-//update a review (aka drink)
-app.put('/users/:user_id/drinks/:drink_id', drinksController.update)
 
+app.use(userRoutes);
 
 
 let port = process.env.PORT || 3001;
