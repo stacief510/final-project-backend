@@ -21,13 +21,17 @@ router.get('/test', (req, res) => res.json({msg: 'Users Endpoint Ok'}));
 // Register
 router.post('/register', (req, res) => {
     // Find User by Email
+    console.log('received', req.body)
     User.findOne({ email: req.body.email })
       .then(user => {
           // If email already exists, send 400 response
           if (user) {
-              return res.status(400).json({ email: 'Email already exists'});
+              console.log('exists')
+              return res.status(200).json({ email: 'Email already exists'});
               // If not exists, create new user
           } else {
+            console.log('does not exist')
+
               // Get avatar from Gravatar
               const avatar = gravatar.url(req.body.email, {
                   s: '200',
@@ -39,6 +43,7 @@ router.post('/register', (req, res) => {
               const newUser = new User({
                   name: req.body.name,
                   email: req.body.email,
+                  current_city: req.body.current_city,
                   avatar,
                   password: req.body.password,
               });
@@ -87,7 +92,7 @@ router.post('/login', (req, res) => {
 });
 
 
-// //GET api/users/current (Private)
+//GET api/users/current (Private)
 // router.get('/current', passport.authenticate('jwt', { session: false }), (req, res)=>{
 //     res.json({
 //         id: req.user.id,

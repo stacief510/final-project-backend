@@ -11,11 +11,12 @@ var drinksController = require('./controllers/drinks');
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
     next();
 });
 
+//add this: passport.authenticate('jwt', { session: false }) to the routes you want to be private. put on  line 30 and the last four links 35-41
 
 // Auth Routes
 app.use(userRoutes);
@@ -23,7 +24,7 @@ app.use(userRoutes);
 //index for users
 app.get('/users', usersController.index);
 //post for users
-app.post('/users', usersController.create);
+// app.post('/users', usersController.create);
 //show for users
 app.get('/users/:user_id', usersController.show);
 //show user's drinks (aka reviews)
